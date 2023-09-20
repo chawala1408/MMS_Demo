@@ -72,7 +72,6 @@ const int mc_coil = 8;
 #define mc_other 34
 #define mc_stop 35
 
-
 #define mc_run ??
 #define mc_alarm ??
 #define mc_clear ??
