@@ -59,8 +59,6 @@ String status_MC[8] = {
   "6",
   "7",
   "8",
-
-
 };
 
 int bitIndex;
@@ -73,9 +71,10 @@ const int mc_coil = 8;
 #define mc_warm 33
 #define mc_other 34
 #define mc_stop 35
+
+
 #define mc_run ??
 #define mc_alarm ??
-
 #define mc_clear ??
 
 #define yy Data[36]
@@ -360,9 +359,9 @@ loop1: delay(1);
     actionmin = String(Data[40]);  Serial.print("mm : ");               Serial.println(actionmin);
     actionsec = String(Data[41]);  Serial.print("ss : ");               Serial.println(actionsec);
     TARGET_SHIFT         = String(Data[42]);  Serial.print("Target : ");             Serial.println(TARGET_SHIFT);
-    TOTAL_OUT_SHIFT_A    = String(Data[43]);  Serial.print("TL_Out_A : ");           Serial.println(TOTAL_OUT_SHIFT_A);
-    TOTAL_OUT_SHIFT_B    = String(Data[44]);  Serial.print("TL_Out_B  : ");          Serial.println(TOTAL_OUT_SHIFT_B);
-    TOTAL_OUT_SHIFT_C    = String(Data[45]);  Serial.print("TL_Out_C  : ");          Serial.println(TOTAL_OUT_SHIFT_C);
+    TOTAL_OUT_SHIFT_A    = String(Data[43]);  Serial.print("TL_OUT_A : ");           Serial.println(TOTAL_OUT_SHIFT_A);
+    TOTAL_OUT_SHIFT_B    = String(Data[44]);  Serial.print("TL_OUT_B  : ");          Serial.println(TOTAL_OUT_SHIFT_B);
+    TOTAL_OUT_SHIFT_C    = String(Data[45]);  Serial.print("TL_OUT_C  : ");          Serial.println(TOTAL_OUT_SHIFT_C);
     YIELD_SHIFT_A        = String(Data[46]);  Serial.print("YIELD_A : ");            Serial.println(YIELD_SHIFT_A);
     YIELD_SHIFT_B        = String(Data[47]);  Serial.print("YIELD_B  : ");           Serial.println(YIELD_SHIFT_B);
     YIELD_SHIFT_C     = String(Data[48]);  Serial.print("YIELD_C  : ");              Serial.println(YIELD_SHIFT_C);
@@ -392,9 +391,9 @@ loop1: delay(1);
     doc["mm"]                  = actionmin;
     doc["ss"]                  = actionsec;
     doc["Target"]       = TARGET_SHIFT;
-    doc["TL_Out_A"]      = TOTAL_OUT_SHIFT_A;
-    doc["TL_Out_B"]      = TOTAL_OUT_SHIFT_B;
-    doc["TL_Out_C"]      = TOTAL_OUT_SHIFT_C;
+    doc["TL_OUT_A"]      = TOTAL_OUT_SHIFT_A;
+    doc["TL_OUT_B"]      = TOTAL_OUT_SHIFT_B;
+    doc["TL_OUT_C"]      = TOTAL_OUT_SHIFT_C;
     doc["YIELD_A"]       = YIELD_SHIFT_A;
     doc["YIELD_B"]       = YIELD_SHIFT_B;
     doc["YIELD_C"]       = YIELD_SHIFT_C;
