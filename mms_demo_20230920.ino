@@ -442,7 +442,6 @@ loop1: delay(1);
     if (WiFi.status() == WL_CONNECTED)
     {
       esp_task_wdt_reset();
-      sent_ftp_alarm();     ////
       sent_ftp_mc();
     }
   }
