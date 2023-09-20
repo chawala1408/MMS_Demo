@@ -308,16 +308,16 @@ loop1: delay(1);
           alarmStates[i] = true;
           printMachineStatus(status_MC[2]);
         }
-        if ( i == mc_noWork ) {
+        if ( i == mc_warm ) {
           alarmStates[i] = true;
           printMachineStatus(status_MC[3]);
         }
-        if ( i == mc_warm ) {
+        if ( i == mc_other ) {
           alarmStates[i] = true;
           printMachineStatus(status_MC[4]);
         }
 
-        if ( i == mc_other ) {
+        if ( i == mc_stop ) {
           alarmStates[i] = true;
           printMachineStatus(status_MC[5]);
         }
@@ -474,55 +474,7 @@ void printMachineStatus(String status_mc)
   }
 }
 
-void printAlarmList()
-{
-  int alarmIndex;
 
-  lineCount = countLines("/data.txt");
-  int Count2 = lineCount;
-  deleteLine("/data.txt", Count2);
-  delay(10);
-  if (alarmIndex < alarm_coil && Count2 >= 2 )
-  {
-    appendToLine(SPIFFS, "/data.txt", Count2, output.c_str(), alarmNames[bitIndex].c_str());
-
-  }
-
-}
-
-void sent_ftp_alarm()
-{
-  moveDataFromFile("/data.txt", "/destination.txt");
-  lineCount = countLines("/data.txt");
-  int Count3 = lineCount;
-  if (Count3 > 2)
-  {
-    ftp.OpenConnection();
-    File dataFile1 = SPIFFS.open("/destination.txt", "r");
-
-    if (dataFile1) {
-      String content1 = dataFile1.readString();
-      dataFile1.close();
-      if (content1.length() > 0) {
-        // Upload the content to the FTP server
-        ftp.InitFile("Type A");
-        ftp.ChangeWorkDir("/data_alarmlist/gd/"); // Change this to your remote directory    ////data_mcstatus\gd
-        ftp.NewFile("nht_gd_alarmlist_ic11b.txt");
-        ftp.Write(content1.c_str());
-        ftp.CloseFile();
-      }
-    } else {
-      Serial.println("Failed to open data.txt for reading");
-    }
-
-    ftp.CloseConnection();
-  } else
-  {
-    Serial.println("Failed to open nht_gd_alarmlist_ic11b.txt Empty");
-    delay(1000);
-  }
-  deleteFile(SPIFFS, "/destination.txt");
-}
 
 void sent_ftp_mc()
 {
@@ -538,8 +490,8 @@ void sent_ftp_mc()
       if (content2.length() > 0) {
         // Upload the content to the FTP server
         ftp.InitFile("Type A");
-        ftp.ChangeWorkDir("/data_mcstatus/gd/"); // Change this to your remote directory    ////data_mcstatus\gd
-        ftp.NewFile("nht_gd_mcstatus_ic11b.txt");
+        ftp.ChangeWorkDir("/data_mcstatus/tn/"); // Change this to your remote directory    ////data_mcstatus\tn
+        ftp.NewFile("gmma_tn_mcstatus_BM165_146.txt");
         ftp.Write(content2.c_str());
         ftp.CloseFile();
       }
@@ -550,7 +502,7 @@ void sent_ftp_mc()
     ftp.CloseConnection();
   } else
   {
-    Serial.println("Failed to open nht_gd_mcstatus_ic11b.txt Empty");
+    Serial.println("Failed to open gmma_tn_mcstatus_BM165_146.txt Empty");
     delay(1000);
   }
 }
