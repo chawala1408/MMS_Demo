@@ -349,7 +349,7 @@ loop1: delay(1);
     actionhour = String(hh);  Serial.print("HH : ");              Serial.println(actionhour);
     actionmin = String(mn);  Serial.print("mm : ");               Serial.println(actionmin);
     actionsec = String(sec);  Serial.print("ss : ");               Serial.println(actionsec);
-    TARGET_SHIFT         = String(Data[44]);  Serial.print("Target : ");             Serial.println(TARGET_SHIFT);
+    TARGET_SHIFT         = String(Data[44]);  Serial.print("TARGET : ");             Serial.println(TARGET_SHIFT);
     TOTAL_OUT_SHIFT_A    = String(Data[45]);  Serial.print("TL_OUT_A : ");           Serial.println(TOTAL_OUT_SHIFT_A);
     TOTAL_OUT_SHIFT_B    = String(Data[46]);  Serial.print("TL_OUT_B  : ");          Serial.println(TOTAL_OUT_SHIFT_B);
     TOTAL_OUT_SHIFT_C    = String(Data[47]);  Serial.print("TL_OUT_C  : ");          Serial.println(TOTAL_OUT_SHIFT_C);
