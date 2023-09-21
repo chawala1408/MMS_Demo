@@ -381,7 +381,7 @@ loop1: delay(1);
     doc["HH"]                  = actionhour;
     doc["mm"]                  = actionmin;
     doc["ss"]                  = actionsec;
-    doc["Target"]       = TARGET_SHIFT;
+    doc["TARGET"]       = TARGET_SHIFT;
     doc["TL_OUT_A"]      = TOTAL_OUT_SHIFT_A;
     doc["TL_OUT_B"]      = TOTAL_OUT_SHIFT_B;
     doc["TL_OUT_C"]      = TOTAL_OUT_SHIFT_C;
