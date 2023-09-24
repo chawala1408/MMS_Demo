@@ -24,11 +24,8 @@ class Non_operatingtime extends Component {
       mcno: "ic11r",
       time: this.props.time,
       seconds: "1200",
-      data_test: [
-        { name: "Non - Operating time", data: [86291, 36659, 16858] },
-        { name: "Operating time", data: [86176, 36923, 16904] },
-      ],
-      series_test: ["2023-08-22", "2023-08-23", "2023-08-24"],
+     
+     
     };
   }
   componentDidMount = async () => {

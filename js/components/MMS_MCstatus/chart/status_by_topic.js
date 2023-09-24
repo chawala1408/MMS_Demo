@@ -22,31 +22,6 @@ class Status_by_topic extends Component {
       //   start_date: localStorage.getItem("start_date"),
       //   end_date: localStorage.getItem("end_date"),
       seconds: "1200",
-      data_test: [
-        {
-          "name": "0",
-          "data": [
-            "19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
-          ]
-        },
-        {
-          "name": "1",
-          "data": [
-            "56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
-          ]
-        },
-        {
-          "name": "2",
-          "data": [
-            "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
-          ]
-        }
-      ],
-      // [
-      //   { name: 'Non - Operating time', data: [ 86291, 36659, 16858 ] },
-      //   { name: 'Operating time', data: [ 86176, 36923, 16904 ] }
-      // ],
-      series_test: ['2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-22', '2023-08-23', '2023-08-24', '2023-08-24'],
     };
   }
   componentDidMount = async () => {
@@ -72,7 +47,7 @@ class Status_by_topic extends Component {
     const array = await httpClient.post(
       server.MC_by_status + "/" + this.state.start_date + "/" + this.state.end_date + "/" + this.state.mcno
     );
-    console.log("by status");
+    console.log("by status",array);
     try {
       if (array.data.resultdata[0].length === 0) {
         Swal.fire({
@@ -123,8 +98,11 @@ class Status_by_topic extends Component {
         const myResult = this.state.list_machine;
         return myResult.map((item) => <option>{item.mc_no}</option>);
       }
+
     } catch (error) { }
   };
+
+
 
 
 
@@ -140,7 +118,7 @@ class Status_by_topic extends Component {
     };
     return (
       <div className="row-12">
-        <div className="card" style={{height:"200px"}}>
+        <div className="card" style={{ height: "200px" }}>
           <div
             className="card-header"
             style={{
@@ -160,7 +138,7 @@ class Status_by_topic extends Component {
             </div>
             <div class="col-2">
               <input
-              style={divStyle1}
+                style={divStyle1}
                 class="form-control"
                 type="date"
                 value={this.state.start_date}
@@ -179,7 +157,7 @@ class Status_by_topic extends Component {
             </div>
             <div class="col-2">
               <input
-              style={divStyle1}
+                style={divStyle1}
                 class="form-control"
                 type="date"
                 value={this.state.end_date}
@@ -210,13 +188,13 @@ class Status_by_topic extends Component {
             </div>
             <div className="col-1">
               <button
-              style={{
-                marginBottom: "0",
-                width: "200px",
-                height: "60px",
-                fontWeight: 500,
-                fontSize: "2rem",
-              }}
+                style={{
+                  marginBottom: "0",
+                  width: "200px",
+                  height: "60px",
+                  fontWeight: 500,
+                  fontSize: "2rem",
+                }}
                 type="submit"
                 className="btn btn-primary"
                 onClick={async (e) => {
@@ -228,144 +206,123 @@ class Status_by_topic extends Component {
               </button>
             </div>
           </div>
-          
+
         </div>
         <div className="page-content">
-            <div id="chart">
-              <ReactApexCharts
-                options={{
-                  chart: {
-                    type: "bar",
-                    height: 350,
-                    stacked: true,
-                    stackType: "100%",
+          <div id="chart">
+            <ReactApexCharts
+              options={{
+                chart: {
+                  type: "bar",
+                  height: 350,
+                  stacked: true,
+                  stackType: "100%",
+                },
+                plotOptions: {
+                  bar: {
+                    // horizontal: true,
+                    horizontal: false,
                   },
-                  plotOptions: {
-                    bar: {
-                      // horizontal: true,
-                      horizontal: false,
+                },
+                stroke: {
+                  width: 1,
+                  colors: ["#fff"],
+                },
+                // title: {
+                //   text: "Data for date : " + this.state.datetoday,
+                //   style: {
+                //     fontSize: '30px',
+                //     // fontWeight: 900
+                //   }
+                // },
+                xaxis: {
+                  type: "date",
+                  labels: {
+                    show: true,
+                    rotate: -45,
+                    style: {
+                      colors: "black",
+                      fontSize: "20px",
+                      fontWeight: "bold",
                     },
+                    // rotateAlways: false,
+                    // hideOverlappingLabels: true,
+                    // showDuplicates: false,
+                    // trim: false,
+                    // minHeight: undefined,
+                    // maxHeight: 120,
+                    // style: {
+                    //   colors: [],
+                    //   fontSize: "25px",
+                    //   fontFamily: "Helvetica, Arial, sans-serif",
+                    //   fontWeight: 400,
+                    //   cssClass: "apexcharts-xaxis-label",
+                    // },
                   },
-                  stroke: {
-                    width: 1,
-                    colors: ["#fff"],
-                  },
-                  // title: {
-                  //   text: "Data for date : " + this.state.datetoday,
-                  //   style: {
-                  //     fontSize: '30px',
-                  //     // fontWeight: 900
-                  //   }
-                  // },
-                  xaxis: {
-                    type: "date",
+                  categories: this.state.DateAll,
+                  // categories: this.state.series_test,
+                },
+                yaxis: [
+                  {
                     labels: {
-                      show: true,
-                      rotate: -45,
                       style: {
                         colors: "black",
                         fontSize: "20px",
                         fontWeight: "bold",
                       },
-                      // rotateAlways: false,
-                      // hideOverlappingLabels: true,
-                      // showDuplicates: false,
-                      // trim: false,
-                      // minHeight: undefined,
-                      // maxHeight: 120,
-                      // style: {
-                      //   colors: [],
-                      //   fontSize: "25px",
-                      //   fontFamily: "Helvetica, Arial, sans-serif",
-                      //   fontWeight: 400,
-                      //   cssClass: "apexcharts-xaxis-label",
-                      // },
-                    },
-                    categories: this.state.DateAll,
-                    // categories: this.state.series_test,
-                  },
-                  yaxis: [
-                    {
-                      labels: {
-                        style: {
-                          colors: "black",
-                          fontSize: "20px",
-                          fontWeight: "bold",
-                        },
-                      },
-                    },
-                  ],
-                  dataLabels: {
-                    enabled: true,
-                    position: "center",
-                    style: {
-                      fontSize: "20px",
-                      fontWeight: "bold",
                     },
                   },
-                  tooltip: {
-                    y: {
-                      formatter: function (val) {
-                        return val + "min";
-                      },
-                    },
-                  },
-                  fill: {
-                    opacity: 1,
-                  },
-                  colors: [
-                    "#46E816",
-                    "#E81616",
-                    "#FF9700",
-                    "#FFFB00",
-                    "#003EFF",
-                  ],
-                  legend: {
-                    horizontalAlign: "center",
-                    floating: false,
+                ],
+                dataLabels: {
+                  enabled: true,
+                  position: "center",
+                  style: {
                     fontSize: "20px",
-                    fontFamily: "Helvetica, Arial",
-                    position: "right",
-                    offsetX: -20,
-                    offsetY: 10,
-                    formatter: function (seriesName) {
-                      return seriesName;
-                      // if (seriesName === "MBR_MD24") {
-                      //   return ["BALL SIZE -5.0"];
-                      // }
-                      // if (seriesName === "MBR_MD25") {
-                      //   return ["BALL SIZE -2.5"];
-                      // }
-                      // if (seriesName === "MBR_MD26") {
-                      //   return ["BALL SIZE 0.0"];
-                      // }
-                      // if (seriesName === "MBR_MD27") {
-                      //   return ["BALL SIZE +2.5"];
-                      // }
-                      // if (seriesName === "MBR_MD28") {
-                      //   return ["BALL SIZE +5.0"];
-                      // }
+                    fontWeight: "bold",
+                  },
+                },
+                tooltip: {
+                  y: {
+                    formatter: function (val) {
+                      return val + "min";
                     },
                   },
-                }}
-                // series={this.state.data_test}
-                series={this.state.data_all}
-                // series={[
-                //   { name: '2023-08-22', data: [ 698, 8, null, 108, 0 ] },
-                //   { name: '2023-08-23', data: [ 1578, 17, 1, 53, 3 ] },
-                //   { name: '2023-08-24', data: [ 1106, 1, 124, 32, 1 ] },
-                //   { name: '2023-08-25', data: [ 405, 3649, 2, 124, 0 ] },
-                //   { name: '2023-08-28', data: [ 165, 260, 10, 1352, 11 ] },
-                //   { name: '2023-08-29', data: [ 689, 5, 24, 269, 17 ] },
-                //   { name: '2023-08-30', data: [ 1026, 2, 37, 364, 10 ] },
-                //   { name: '2023-08-27', data: [ 20, 3, 0, 151, null ] },
-                //   { name: '2023-08-31', data: [ 84, 2, 98, 9, null ] }
-                // ]}
-                type="bar"
-                height={600}
-              />
-            </div>
+                },
+                fill: {
+                  opacity: 1,
+                },
+                colors: [
+                  "#37D67A",
+                  "#EB144C",
+                  "#FFEB3B",
+                  "#1273DE",
+                  "#9C27B0",
+                  "#8ED1FC",
+                  "#CDDC39",
+                  "#ABB8C3",
+                ],
+                legend: {
+                  horizontalAlign: "center",
+                  floating: false,
+                  fontSize: "20px",
+                  fontFamily: "Helvetica, Arial",
+                  position: "right",
+                  offsetX: -20,
+                  offsetY: 10,
+                  formatter: function (seriesName) {
+                    return seriesName;
+
+                  },
+                },
+              }}
+
+              series={this.state.data_all}
+
+              type="bar"
+              height={600}
+            />
           </div>
+        </div>
       </div>
     );
   }
