@@ -1,0 +1,154 @@
+[
+    {
+        "id": "48081d7a598d0655",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1dd724d14ebe015a",
+        "type": "tcp in",
+        "z": "48081d7a598d0655",
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "8080",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 120,
+        "y": 660,
+        "wires": [
+            [
+                "71ce8b6e7e414fea"
+            ]
+        ]
+    },
+    {
+        "id": "f81e6248f7a7997d",
+        "type": "MSSQL-UCGv2",
+        "z": "48081d7a598d0655",
+        "mssqlCN": "25c6ed0b061135f3",
+        "name": "",
+        "query": "",
+        "outField": "payload",
+        "x": 620,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "352a87ba051580b5",
+        "type": "debug",
+        "z": "48081d7a598d0655",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "675bb9a6b529ba8f",
+        "type": "function",
+        "z": "48081d7a598d0655",
+        "name": "function 2",
+        "func": "let getglobe = global.get(\"tcpmesg\");\n\nfunction formatDate(date) {\n      let hours = date.getHours();\n      let minutes = date.getMinutes();\n      let seconds = date.getSeconds();\n      let ampm = hours >= 12 ? 'pm' : 'am';\n      minutes = minutes < 10 ? '0' + minutes : minutes;\n      seconds = seconds < 10 ? '0' + seconds : seconds;\n      let strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;\n\n      if (hours >= 0 && hours <= 7) {\n            date.setDate(date.getDate() - 1);\n      }\n\n      let dateFormat = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });\n      return dateFormat + \"  \" + strTime;\n}\n\nlet getDate = new Date();\nlet MfgDate = formatDate(getDate);\n\nmsg.payload = `INSERT INTO [dbo].[TCP_MESSAGE]\n           ([TCP_TIME]\n           ,[TCP_MSG])\n     VALUES\n           ( '`+ MfgDate +`'\n           , '`+ getglobe +`')`\n// msg.payload = MfgDate\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 660,
+        "wires": [
+            [
+                "f81e6248f7a7997d",
+                "352a87ba051580b5"
+            ]
+        ]
+    },
+    {
+        "id": "f3c6bfbbfcfac121",
+        "type": "tcp out",
+        "z": "48081d7a598d0655",
+        "name": "",
+        "host": "localhost",
+        "port": "8080",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "",
+        "x": 350,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "f7849d1e9687208f",
+        "type": "inject",
+        "z": "48081d7a598d0655",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "test_tcp10",
+        "payloadType": "str",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "f3c6bfbbfcfac121"
+            ]
+        ]
+    },
+    {
+        "id": "71ce8b6e7e414fea",
+        "type": "function",
+        "z": "48081d7a598d0655",
+        "name": "function 3",
+        "func": "global.set(\"tcpmesg\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 660,
+        "wires": [
+            [
+                "675bb9a6b529ba8f"
+            ]
+        ]
+    },
+    {
+        "id": "25c6ed0b061135f3",
+        "type": "MSSQL-UCGv2-CN",
+        "name": "demopos",
+        "server": "PLBIC11\\SQLEXPRESS",
+        "port": "1433",
+        "encyption": true,
+        "database": "demopos",
+        "pool": "20",
+        "connectionTimeout": "16000",
+        "requestTimeout": "15000"
+    }
+]
